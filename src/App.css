@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap");
+
+:root {
+  --dark-mode-elements: #2b3945;
+  --dark-mode-background: #202c37;
+  --light-mode-text: hsl(200, 15%, 8%);
+  --Light-mode-input: hsl(0, 0%, 52%);
+  --Light-mode-background: hsl(0, 0%, 98%);
+  --light-mode-elements: hsl(0, 0%, 100%);
+}
+
+.app {
+  background-color: var(--Light-mode-background);
+  min-height: 100vh;
+  height: 100%;
+}
+
+.app.darkMode {
+  background-color: var(--dark-mode-background);
+  color: #fff;
+}
+
+.header.darkMode {
+  background-color: var(--dark-mode-elements);
+  color: #fff;
+}
