@@ -59,7 +59,6 @@ const Country = (props: any) => {
   const showDetailsHandler = (data: any) => {
     navigate("/country_details", { state: data });
   };
-  console.log(props.darkMode, "props.darkMode");
 
   const Countryclasses = useountryStyles();
   return (

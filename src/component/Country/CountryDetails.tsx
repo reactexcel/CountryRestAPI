@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { makeStyles } from "@mui/styles";
+import { DarkModeType } from "../../types/country";
 
 const useCountryDetailsStyles = makeStyles({
   country_details: {
@@ -124,13 +125,12 @@ const useCountryDetailsStyles = makeStyles({
     color: "#fff",
   },
 });
-export const CountryDetails = ({ mode }: any) => {
+
+export const CountryDetails = ({ mode }: DarkModeType) => {
   const CountryDetailsClasses = useCountryDetailsStyles();
   const location = useLocation();
   const dataset: any = location.state;
-  console.log(dataset, "datasetdatasetdatasetdataset");
   const matches = useMediaQuery("(max-width:800px)");
-  console.log(dataset, "dataset");
 
   const navigates = useNavigate();
   const goBack = () => {

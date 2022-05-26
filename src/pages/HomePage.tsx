@@ -6,6 +6,8 @@ import { makeStyles } from "@mui/styles";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllCountryListRequest } from "../redux/actions/countryAction";
 import CircularProgress from "@mui/material/CircularProgress";
+import { DarkModeType } from "../types/country";
+import { json } from "stream/consumers";
 
 const useStyles = makeStyles({
   "@global": {
@@ -147,7 +149,7 @@ const useStyles = makeStyles({
   },
 });
 
-const HomePage = ({ mode }: any) => {
+const HomePage = ({ mode }: DarkModeType) => {
   const classes = useStyles();
   const [countries, setCountries] = useState<any>();
   const countriesInputRef = useRef<any>();
@@ -156,38 +158,50 @@ const HomePage = ({ mode }: any) => {
   const homeMatches = useMediaQuery("(max-width:720px)");
   const dispatch = useDispatch();
   const countrylistdata = useSelector((state: any) => state.CountryDetails);
+  const countryDatas = JSON.parse(localStorage.getItem("countryData") || "[]");
 
   useEffect(() => {
-    dispatch(getAllCountryListRequest());
+    if (!countryDatas) {
+      dispatch(getAllCountryListRequest());
+    }
   }, []);
 
   useEffect(() => {
-    setCountries(countrylistdata.countryDetails.country);
-  }, [countrylistdata.countryDetails]);
+    if (countrylistdata?.countryDetails?.country) {
+      localStorage.setItem(
+        "countryData",
+        JSON.stringify(countrylistdata.countryDetails.country)
+      );
+    }
+  }, [countrylistdata?.countryDetails]);
+
+  useEffect(() => {
+    if (countryDatas) {
+      setCountries(countryDatas);
+    }
+  }, [countryDatas]);
 
   const searchCountries = () => {
-    const searchValue = countriesInputRef.current.value;
+    const searchValue = countriesInputRef?.current?.value;
     if (searchValue.trim()) {
       const fetchSearch = async () => {
         const responseSearch = await fetch(
           `https://restcountries.com/v3.1/name/${searchValue}`
         );
         const data = await responseSearch.json();
-        setCountries(data);
+        localStorage.setItem("countryData", JSON.stringify(data));
       };
 
       try {
         fetchSearch();
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     } else {
       dispatch(getAllCountryListRequest());
     }
   };
 
   const selectRegion = () => {
-    const selectValue = regionRef.current.value;
+    const selectValue = regionRef?.current?.value;
     if (selectValue.trim()) {
       const fetchSelect = async () => {
         const response = await fetch(
@@ -198,19 +212,16 @@ const HomePage = ({ mode }: any) => {
         if (selectValue == "All") {
           try {
             dispatch(getAllCountryListRequest());
-          } catch (error) {
-            console.log(error);
-          }
+          } catch (error) {}
           return;
         }
-        setCountries(data);
+
+        localStorage.setItem("countryData", JSON.stringify(data));
       };
 
       try {
         fetchSelect();
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     }
   };
 

@@ -55,3 +55,12 @@ export type CountStateActions =
   | FetchCountryRequest
   | FetchCountrySuccess
   | FetchCountryFailure;
+
+export type DarkModeType = {
+  mode: boolean;
+};
+
+export type DarkModeHeaderType = {
+  darkMode: boolean;
+  onClick: () => void;
+};

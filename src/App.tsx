@@ -6,12 +6,11 @@ import HomePage from "./pages/HomePage";
 import { CountryDetails } from "./component/Country/CountryDetails";
 
 function App() {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState<boolean>(false);
 
   const switchMode = () => {
     setDarkMode((prevState) => !prevState);
   };
-  console.log(darkMode, "darkMode");
   return (
     <div className={`App ${darkMode ? "darkMode" : ""}`}>
       <Header onClick={switchMode} darkMode={darkMode} />
