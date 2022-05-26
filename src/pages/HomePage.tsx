@@ -151,7 +151,9 @@ const useStyles = makeStyles({
 
 const HomePage = ({ mode }: DarkModeType) => {
   const classes = useStyles();
-  const [countries, setCountries] = useState<any>();
+  const [countries, setCountries] = useState<any>(
+    JSON.parse(localStorage.getItem("countryData") || "[]")
+  );
   const countriesInputRef = useRef<any>();
   const regionRef = useRef<any>();
   const noCountries = countries?.message || countries?.status;
@@ -161,7 +163,7 @@ const HomePage = ({ mode }: DarkModeType) => {
   const countryDatas = JSON.parse(localStorage.getItem("countryData") || "[]");
 
   useEffect(() => {
-    if (!countryDatas) {
+    if (!countries.length) {
       dispatch(getAllCountryListRequest());
     }
   }, []);
@@ -176,10 +178,10 @@ const HomePage = ({ mode }: DarkModeType) => {
   }, [countrylistdata?.countryDetails]);
 
   useEffect(() => {
-    if (countryDatas) {
-      setCountries(countryDatas);
+    if (countrylistdata?.countryDetails?.country?.length) {
+      setCountries(countrylistdata.countryDetails.country);
     }
-  }, [countryDatas]);
+  }, [countrylistdata?.countryDetails?.country]);
 
   const searchCountries = () => {
     const searchValue = countriesInputRef?.current?.value;
@@ -189,7 +191,8 @@ const HomePage = ({ mode }: DarkModeType) => {
           `https://restcountries.com/v3.1/name/${searchValue}`
         );
         const data = await responseSearch.json();
-        localStorage.setItem("countryData", JSON.stringify(data));
+        // localStorage.setItem("countryData", JSON.stringify(data));
+        setCountries(data);
       };
 
       try {
@@ -215,8 +218,8 @@ const HomePage = ({ mode }: DarkModeType) => {
           } catch (error) {}
           return;
         }
-
-        localStorage.setItem("countryData", JSON.stringify(data));
+        setCountries(data);
+        // localStorage.setItem("countryData", JSON.stringify(data));
       };
 
       try {
