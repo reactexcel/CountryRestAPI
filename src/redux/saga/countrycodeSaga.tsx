@@ -6,10 +6,10 @@ import {
   getAllCountryCodeListError,
 } from "../actions/countryAction";
 import * as actions from "../constant";
-import { CTodo, ResponseGenerator } from "../../types/country";
+import { companycode, ResponseGenerator } from "../../types/country";
 
 const getCountryCode = async (data: any) => {
-  return await axios.get<CTodo[]>(
+  return await axios.get<companycode[]>(
     `https://restcountries.com/v3.1/alpha/${data.payload}`
   );
 };
