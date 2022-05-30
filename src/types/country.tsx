@@ -64,3 +64,47 @@ export type DarkModeHeaderType = {
   darkMode: boolean;
   onClick: () => void;
 };
+export interface companycode {
+  region: string;
+  population: string;
+  title: string;
+  svg: any;
+  flags: {
+    svg: any;
+  };
+  name: {
+    common: string;
+  };
+  capital: Array<any>;
+}
+
+export interface CountryCodeSuccessPayload {
+  todos: companycode[];
+}
+
+export interface CountryCodeFailurePayload {
+  error: string;
+}
+
+export interface CountryCodeRequest {
+  type: typeof actions.GET_COUNTRY_CODE_DATA_REQUEST;
+}
+
+export interface CountryCodeRequest {
+  type: typeof actions.GET_COUNTRY_CODE_DATA_REQUEST;
+}
+
+export type CountryCodeSuccess = {
+  type: typeof actions.GET_COUNTRY_CODE_DATA_SUCCESS;
+  payload: CountryCodeSuccessPayload;
+};
+
+export type CountryCodeFailure = {
+  type: typeof actions.GET_COUNTRY_CODE_DATA_ERROR;
+  payload: CountryCodeFailurePayload;
+};
+
+export type CountCodeActions =
+  | CountryCodeRequest
+  | CountryCodeSuccess
+  | CountryCodeFailure;

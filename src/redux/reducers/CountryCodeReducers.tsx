@@ -1,40 +1,39 @@
 import * as actions from "../constant";
-import { CountryState, CountStateActions } from "../../types/country";
+import { CountryState, CountCodeActions } from "../../types/country";
 const initialState = {
   isLoading: false,
-  countryDetails: [],
+  countryCode: [],
   isError: false,
   messgae: "",
 };
 
-const CountryDetailsReducer = (
+const CountryCodeReducers = (
   state = initialState,
-  action: CountStateActions
+  action: CountCodeActions
 ) => {
   switch (action.type) {
-    case actions.GET_ALL_COUNTRY_LIST_REQUEST:
+    case actions.GET_COUNTRY_CODE_DATA_REQUEST:
       return {
         ...state,
         isLoading: true,
         isError: false,
-        countryDetails: "",
         messgae: "",
       };
 
-    case actions.GET_ALL_COUNTRY_LIST_SUCCESS:
+    case actions.GET_COUNTRY_CODE_DATA_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        countryDetails: action.payload,
+        countryCode: action.payload,
         isError: false,
         messgae: "",
       };
 
-    case actions.GET_ALL_COUNTRY_LIST_ERROR:
+    case actions.GET_COUNTRY_CODE_DATA_ERROR:
       return {
         ...state,
         isLoading: false,
-        Message: action.payload,
+
         isError: true,
         messgae: action.payload,
       };
@@ -44,4 +43,4 @@ const CountryDetailsReducer = (
   }
 };
 
-export default CountryDetailsReducer;
+export default CountryCodeReducers;

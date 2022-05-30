@@ -14,6 +14,7 @@ const getCountry = () =>
 function* fetchCountrySaga() {
   try {
     const response: ResponseGenerator = yield call(getCountry);
+
     yield put(
       getAllCountryListSuccess({
         country: response.data,

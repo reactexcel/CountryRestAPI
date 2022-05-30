@@ -26,6 +26,7 @@ const useStyles = makeStyles({
     margin: "15px auto 0",
     padding: "15px",
     maxWidth: "1400px",
+    fontSize: "14px",
   },
   app_body_dark_dark: {
     margin: "0px auto 0",
